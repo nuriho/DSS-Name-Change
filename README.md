@@ -1,2 +1,2 @@
-# DSS-Name-Change
-Change subtitle name for Dark Smurf Subs
+edit path.txt with path of srt to convert
+double click on 'dssNameChange.jar'
