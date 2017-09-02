@@ -162,7 +162,7 @@ public class DssNameChangeTest {
 	@Test
 	public void testMain(){
 		DssNameChange dnc = new DssNameChange();
-		String expected = "E:\\workspace\\dssNameChange\\test\\program\\기황후 (Ki Empress)";
+		String expected = "E:\\workspace\\dssNameChange\\test\\program\\Ki Empress";
 //		dnc.main(path);
 		File file = new File("E:/workspace/dssNameChange/path.txt");
 		BufferedReader br;
