@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import org.junit.Test;
@@ -31,7 +32,8 @@ public class DssNameChangeTest {
 	@Test
 	public void testTrollFilesInFolder() {
 		DssNameChange dnc = new DssNameChange();
-		String path = "E:/workspace/dssNameChange/test/program/testFiles";
+		URL resource = DssNameChangeTest.class.getResource("testFiles");
+		String path = resource.getPath();
 		ArrayList<String> expected = new ArrayList<String>();
 
 		expected.add("I.Hear.Your.Voice.E12.130711.HDTV.x264.1080p-AyoSuzy.mkv");
@@ -139,7 +141,9 @@ public class DssNameChangeTest {
 	@Test
 	public void testSetDssTitle(){
 		DssNameChange dnc = new DssNameChange();
-		String path = "E:/workspace/dssNameChange/test/program/testFiles";
+
+		URL resource = DssNameChangeTest.class.getResource("testFiles");
+		String path = resource.getPath();
 		
 		String srt = "QS.Empress.Gi.2013-E01_720p-HANrel-darksmurfsub_100-"
 				+ "FANS-Translated__100-FANS-Edited__100-Elite-QC-Edited.srt";
@@ -161,10 +165,38 @@ public class DssNameChangeTest {
 	
 	@Test
 	public void testMain(){
-		DssNameChange dnc = new DssNameChange();
-		String expected = "E:\\workspace\\dssNameChange\\test\\program\\Ki Empress";
+//		DssNameChange dnc = new DssNameChange();
+		URL resource = DssNameChangeTest.class.getResource("testFiles");
+		String path = resource.getPath();
+		StringBuilder sb = new StringBuilder();
+		sb.append(path);
+		sb.append(File.separator);
+		sb.append("..");
+		sb.append(File.separator);
+		sb.append("기황후 (Ki Empress)");
+		File tmp = new File(sb.toString());
+		
+		String expected = "";
+		try
+		{
+			expected = tmp.getCanonicalPath();
+		} catch (IOException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 //		dnc.main(path);
-		File file = new File("E:/workspace/dssNameChange/path.txt");
+		
+		sb.setLength(0);
+		sb.append(path);
+		sb.append(File.separator);
+		sb.append("..");
+		sb.append(File.separator);
+		sb.append("resources");
+		sb.append(File.separator);
+		sb.append("path.txt");
+		
+		File file = new File(sb.toString());
 		BufferedReader br;
 		try {
 			String actual = "";
@@ -172,8 +204,11 @@ public class DssNameChangeTest {
 			String line = br.readLine();
 			
 			if (line != null) {
-				actual = line.substring(1, line.length());
+				path = line.substring(1, line.length());
+				tmp = new File(path);
 			}
+			
+			actual = tmp.getCanonicalPath();
 			boolean ret = actual.equals(expected);
 			assertTrue("Actual: " + actual + " || Expected: " + expected, ret );
 		} catch (UnsupportedEncodingException | FileNotFoundException e) {
